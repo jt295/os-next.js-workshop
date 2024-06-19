@@ -9,17 +9,6 @@ export type Post = {
   author: string;
 };
 
-export async function generateStaticParams() {
-  const posts: Post[] = await fetch(process.env.BASE_API_URL + "/posts", {
-    cache: "default",
-    next: { tags: ["posts"] },
-  }).then((res) => res.json());
-
-  return posts.map((post) => ({
-    slug: post.title.split(" ").join("-"),
-  }));
-}
-
 export default async function Post({ params }: { params: { slug: string } }) {
   const res: Post[] = await fetch(
     `${process.env.BASE_API_URL}/posts/${params.slug}`,
