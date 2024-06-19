@@ -1,6 +1,4 @@
-import DynamicData from "@/components/dynamicData";
 import Image from "next/image";
-import { Suspense } from "react";
 
 type homeRoute = {
   title: string;
@@ -54,25 +52,6 @@ export default async function Home() {
             <li key={i}>{joke}</li>
           ))}
         </ul>
-      </div>
-
-      <div className="prose-lg mt-8">
-        <h2>Slow requests prevented from blocking with suspense boundaries</h2>
-        <Suspense fallback={<p>Data loading from slow endpoint</p>}>
-          <DynamicData />
-        </Suspense>
-        <Suspense fallback={<p>Data loading from slow endpoint</p>}>
-          <DynamicData />
-        </Suspense>
-        <Suspense fallback={<p>Data loading from slow endpoint</p>}>
-          <DynamicData />
-        </Suspense>
-        <Suspense fallback={<p>Data loading from slow endpoint</p>}>
-          <DynamicData />
-        </Suspense>
-        <Suspense fallback={<p>Data loading from slow endpoint</p>}>
-          <DynamicData />
-        </Suspense>
       </div>
 
       <div className="prose-lg mx-auto prose-ul:list-disc">
