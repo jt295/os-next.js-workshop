@@ -5,27 +5,17 @@ import { toggleTodo } from "@/actions/toggleTodo";
 import { updateTodo } from "@/actions/updateTodo";
 import { Todo } from "@/app/todo-list/page";
 import classnames from "classnames";
-import { useOptimistic, useRef, useState } from "react";
-
-type TodoPart = { todo: string } | { isCompleted: boolean };
+import { useRef, useState } from "react";
 
 export default function TodoCard({ todo }: { todo: Todo }) {
   const [isEditMode, setEditMode] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [optimisticTodo, setOptimisticTodo] = useOptimistic(
-    todo,
-    (state, newContent: TodoPart) => {
-      return { ...state, ...newContent };
-    }
-  );
 
   async function update(formData: FormData) {
-    setOptimisticTodo({ todo: formData.get("todo") as string });
     await updateTodo(formData);
   }
 
   async function toggle(formData: FormData) {
-    setOptimisticTodo({ isCompleted: !Boolean(formData.get("newStatus")) });
     await toggleTodo(formData);
   }
 
@@ -42,7 +32,7 @@ export default function TodoCard({ todo }: { todo: Todo }) {
             type="checkbox"
             name="newStatus"
             id={todo.id.toString()}
-            checked={Boolean(optimisticTodo.isCompleted)}
+            checked={Boolean(todo.isCompleted)}
             readOnly
           />
           <input type="text" readOnly hidden value={todo.id} name="todoId" />
@@ -50,7 +40,7 @@ export default function TodoCard({ todo }: { todo: Todo }) {
             id={`${todo.id}-label`}
             className={classnames(isEditMode ? "hidden" : "block")}
           >
-            {optimisticTodo.todo}
+            {todo.todo}
           </label>
           <button
             className={
@@ -58,8 +48,8 @@ export default function TodoCard({ todo }: { todo: Todo }) {
               " absolute left-0 bottom-0 w-full h-full"
             }
             type="submit"
-            aria-label={`Set status of "${optimisticTodo.todo}" to be ${
-              optimisticTodo.isCompleted ? "incomplete" : "completed"
+            aria-label={`Set status of "${todo.todo}" to be ${
+              todo.isCompleted ? "incomplete" : "completed"
             }`}
           ></button>
         </form>
@@ -74,7 +64,7 @@ export default function TodoCard({ todo }: { todo: Todo }) {
             name="todo"
             id={`${todo.id}-edit`}
             className={classnames(isEditMode ? "block" : "hidden")}
-            defaultValue={optimisticTodo.todo}
+            defaultValue={todo.todo}
             ref={inputRef}
           />
           <input type="text" readOnly hidden value={todo.id} name="todoId" />
