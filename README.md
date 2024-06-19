@@ -97,7 +97,7 @@ Create a /todos route in the app directory, and render all of the todos
 
 ### 6b. Add toggle functionality
 
-### 6c. Add create functionality
+### 6c. Add create and update functionality
 
 ### 6d. Add delete functionality
 

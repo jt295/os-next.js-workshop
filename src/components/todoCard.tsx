@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteTodo } from "@/actions/deleteTodo";
 import { toggleTodo } from "@/actions/toggleTodo";
 import { updateTodo } from "@/actions/updateTodo";
 import { Todo } from "@/app/todo-list/page";
@@ -86,15 +85,6 @@ export default function TodoCard({ todo }: { todo: Todo }) {
         >
           {isEditMode ? "Cancel edit" : "Edit"}
         </button>
-        <form action={deleteTodo} id={`delete-form-${todo.id}`}>
-          <input type="text" readOnly hidden value={todo.id} name="todoId" />
-          <button
-            type="submit"
-            className="min-w-12 duration-75 hover:opacity-80 min-h-12 px-2 font-semibold flex items-center justify-center text-white bg-red-600"
-          >
-            Delete
-          </button>
-        </form>
       </div>
     </li>
   );
