@@ -1,4 +1,3 @@
-import { createTodo } from "@/actions/createTodo";
 import TodoCard from "@/components/todoCard";
 
 export type Todo = {
@@ -22,18 +21,6 @@ export default async function Page() {
           <TodoCard key={todo.id} todo={todo} />
         ))}
       </ul>
-      <form action={createTodo}>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="new-todo">Create new todo</label>
-          <input
-            className="border rounded px-4 py-2"
-            type="text"
-            name="todo"
-            id="new-todo"
-          />
-          <button hidden type="submit"></button>
-        </div>
-      </form>
     </main>
   );
 }
